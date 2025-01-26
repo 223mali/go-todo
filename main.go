@@ -1,25 +1,29 @@
 package main
 
 import (
+	"fmt"
 	"go-todo/docs"
 	"net/http"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
 var db = make(map[string]string)
 
-// Ping test
-// @Summary ping example
-// @Schemes
-// @Description do ping
-// @Tags example
-// @Accept json
-// @Produce json
-// @Success 200 {string} Helloworld
-// @Router /ping/ [get]
+// PingHandler godoc
+// @Summary      Ping endpoint
+// @Description  Returns pong message to verify API is running
+// @Tags         health
+// @Accept       json
+// @Produce      plain
+// @Success      200  {string}  string  "pong"
+// @Router       /ping [get]
 func pingHandler(c *gin.Context) {
 	c.String(http.StatusOK, "pong")
 }
@@ -53,6 +57,7 @@ func setupHealthAndSwaggerRoute(r *gin.Engine) *gin.Engine {
 // @externalDocs.description  OpenAPI
 // @externalDocs.url          https://swagger.io/resources/open-api/
 func main() {
+	godotenv.Load(".env")
 	docs.SwaggerInfo.Title = "Golang Todo API"
 	docs.SwaggerInfo.Description = "This is a simple api to learn go."
 	docs.SwaggerInfo.Version = "1.0"
@@ -63,6 +68,16 @@ func main() {
 	r := gin.Default()
 	setupHealthAndSwaggerRoute(r)
 
-	// Listen and Server in 0.0.0.0:8080
 	r.Run(":8080")
+
+	dsn := fmt.Sprintf("host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai", os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+
+	if err != nil {
+		panic("failed to connect database")
+	} else {
+		fmt.Println("DB connection SUCCESS")
+	}
+
+	// Listen and Server in 0.0.0.0:8080
 }

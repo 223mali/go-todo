@@ -16,21 +16,21 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
-  /ping/:
+  /ping:
     get:
       consumes:
       - application/json
-      description: do ping
+      description: Returns pong message to verify API is running
       produces:
-      - application/json
+      - text/plain
       responses:
         "200":
-          description: OK
+          description: pong
           schema:
             type: string
-      summary: ping example
+      summary: Ping endpoint
       tags:
-      - example
+      - health
   /tasks/:
     get:
       consumes:

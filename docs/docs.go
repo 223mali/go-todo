@@ -24,22 +24,22 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/ping/": {
+        "/ping": {
             "get": {
-                "description": "do ping",
+                "description": "Returns pong message to verify API is running",
                 "consumes": [
                     "application/json"
                 ],
                 "produces": [
-                    "application/json"
+                    "text/plain"
                 ],
                 "tags": [
-                    "example"
+                    "health"
                 ],
-                "summary": "ping example",
+                "summary": "Ping endpoint",
                 "responses": {
                     "200": {
-                        "description": "OK",
+                        "description": "pong",
                         "schema": {
                             "type": "string"
                         }
