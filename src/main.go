@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	"go-todo/docs"
+
 	"net/http"
 	"os"
 
+	"github.com/223mali/go-todo/src/docs"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
@@ -67,6 +68,8 @@ func main() {
 
 	r := gin.Default()
 	setupHealthAndSwaggerRoute(r)
+
+	v1Group := r.Group("/api/v1")
 
 	r.Run(":8080")
 
