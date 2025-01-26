@@ -1,12 +1,12 @@
 services:
-  web:
-    build: .
-    ports:
-      - "8080:8080"
-    depends_on:
-      db:
-        condition: service_healthy
-    command: ["air"]
+  # web:
+  #   build: .
+  #   ports:
+  #     - "8080:8080"
+  #   depends_on:
+  #     db:
+  #       condition: service_healthy
+  #   command: ["air"]
 
   db:
     image: postgres
@@ -14,6 +14,7 @@ services:
     environment:
       POSTGRES_PASSWORD: ${DB_PASSWROD}
       POSTGRES_USER: ${DB_USER}
+      POSTGRES_DB: ${DB_NAME}
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       interval: 1s

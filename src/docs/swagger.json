@@ -18,7 +18,7 @@
     "host": "localhost:8080",
     "basePath": "/api/v1",
     "paths": {
-        "/ping": {
+        "/api/v1/ping": {
             "get": {
                 "description": "Returns pong message to verify API is running",
                 "consumes": [
@@ -41,7 +41,7 @@
                 }
             }
         },
-        "/tasks/": {
+        "/api/v1/tasks": {
             "get": {
                 "description": "do ping",
                 "consumes": [
@@ -51,16 +51,99 @@
                     "application/json"
                 ],
                 "tags": [
-                    "example"
+                    "Tasks"
                 ],
-                "summary": "ping example",
+                "summary": "Get all tasks",
                 "responses": {
                     "200": {
                         "description": "OK",
                         "schema": {
-                            "type": "string"
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/model.TaskRequest"
+                            }
                         }
                     }
+                }
+            }
+        },
+        "/api/v1/tasks/task": {
+            "get": {
+                "description": "do ping",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Get Single tasks",
+                "parameters": [
+                    {
+                        "maxLength": 10,
+                        "minLength": 5,
+                        "type": "string",
+                        "description": "test",
+                        "name": "test",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.TaskRequest"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Creates a single task",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create Single task",
+                "parameters": [
+                    {
+                        "description": "data",
+                        "name": "data",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/model.TaskRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.TaskRequest"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.TaskRequest": {
+            "type": "object",
+            "properties": {
+                "description": {
+                    "type": "string",
+                    "example": "task description"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "task name"
                 }
             }
         }

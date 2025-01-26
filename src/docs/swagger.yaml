@@ -1,4 +1,14 @@
 basePath: /api/v1
+definitions:
+  model.TaskRequest:
+    properties:
+      description:
+        example: task description
+        type: string
+      name:
+        example: task name
+        type: string
+    type: object
 externalDocs:
   description: OpenAPI
   url: https://swagger.io/resources/open-api/
@@ -16,7 +26,7 @@ info:
   title: Swagger Example API
   version: "1.0"
 paths:
-  /ping:
+  /api/v1/ping:
     get:
       consumes:
       - application/json
@@ -31,7 +41,7 @@ paths:
       summary: Ping endpoint
       tags:
       - health
-  /tasks/:
+  /api/v1/tasks:
     get:
       consumes:
       - application/json
@@ -42,10 +52,55 @@ paths:
         "200":
           description: OK
           schema:
-            type: string
-      summary: ping example
+            items:
+              $ref: '#/definitions/model.TaskRequest'
+            type: array
+      summary: Get all tasks
       tags:
-      - example
+      - Tasks
+  /api/v1/tasks/task:
+    get:
+      consumes:
+      - application/json
+      description: do ping
+      parameters:
+      - description: test
+        in: query
+        maxLength: 10
+        minLength: 5
+        name: test
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TaskRequest'
+      summary: Get Single tasks
+      tags:
+      - Tasks
+    post:
+      consumes:
+      - application/json
+      description: Creates a single task
+      parameters:
+      - description: data
+        in: body
+        name: data
+        schema:
+          $ref: '#/definitions/model.TaskRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TaskRequest'
+      summary: Create Single task
+      tags:
+      - Tasks
 securityDefinitions:
   BasicAuth:
     type: basic

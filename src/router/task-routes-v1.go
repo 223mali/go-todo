@@ -9,7 +9,9 @@ func GetTaskRoutes(r *gin.RouterGroup) *gin.RouterGroup {
 
 	taskGroup := r.Group("/tasks")
 
-	taskGroup.GET("/", controller.GetTasksHandler)
+	taskGroup.GET("", controller.GetTasksHandler)
+	taskGroup.GET("task", controller.GetTaskHandler)
+	taskGroup.POST("task", controller.CreateTask)
 
 	return taskGroup
 

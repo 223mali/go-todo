@@ -1,18 +1,16 @@
 package main
 
 import (
-	"fmt"
-
 	"net/http"
-	"os"
 
+	config "github.com/223mali/go-todo/src/configs"
 	"github.com/223mali/go-todo/src/docs"
+	"github.com/223mali/go-todo/src/model"
+	"github.com/223mali/go-todo/src/router"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"gorm.io/driver/postgres"
-	"gorm.io/gorm"
 )
 
 var db = make(map[string]string)
@@ -24,7 +22,7 @@ var db = make(map[string]string)
 // @Accept       json
 // @Produce      plain
 // @Success      200  {string}  string  "pong"
-// @Router       /ping [get]
+// @Router       /api/v1/ping [get]
 func pingHandler(c *gin.Context) {
 	c.String(http.StatusOK, "pong")
 }
@@ -71,16 +69,11 @@ func main() {
 
 	v1Group := r.Group("/api/v1")
 
-	r.Run(":8080")
+	router.InitiateRouterV1(v1Group)
 
-	dsn := fmt.Sprintf("host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai", os.Getenv("DB_HOST"), os.Getenv("DB_USER"), os.Getenv("DB_PASSWORD"), os.Getenv("DB_NAME"))
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-
-	if err != nil {
-		panic("failed to connect database")
-	} else {
-		fmt.Println("DB connection SUCCESS")
-	}
+	db := config.ConnectToDatabase()
+	db.AutoMigrate(&model.Task{})
 
 	// Listen and Server in 0.0.0.0:8080
+	r.Run(":8080")
 }
