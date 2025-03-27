@@ -101,6 +101,27 @@ paths:
       summary: Create Single task
       tags:
       - Tasks
+  /api/v1/tasks/task/{id}:
+    put:
+      consumes:
+      - application/json
+      description: Updates a single task
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.TaskRequest'
+      summary: Create Single task
+      tags:
+      - Tasks
 securityDefinitions:
   BasicAuth:
     type: basic

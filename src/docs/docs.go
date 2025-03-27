@@ -137,6 +137,38 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/v1/tasks/task/{id}": {
+            "put": {
+                "description": "Updates a single task",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Tasks"
+                ],
+                "summary": "Create Single task",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.TaskRequest"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

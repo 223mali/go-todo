@@ -48,3 +48,28 @@ func (t *TaskRepositoryImpl) CreateTask(task model.TaskRequest) (model.Task, err
 
 	return newTask, nil
 }
+
+func (t *TaskRepositoryImpl) UpdateTask(id int, updateObject model.TaskRequest) (model.Task, error) {
+	var task model.Task
+
+	result := t.Db.First(&task, id)
+
+	if result.Error != nil {
+		return model.Task{}, result.Error
+	}
+
+	if result.RowsAffected == 0 {
+		return model.Task{}, errors.New("No task found")
+	}
+
+	task.Name = updateObject.Name
+	task.Description = updateObject.Description
+
+	updateResult := t.Db.Save(&task)
+
+	if updateResult.Error != nil {
+		return model.Task{}, updateResult.Error
+	}
+
+	return task, result.Error
+}

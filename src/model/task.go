@@ -12,3 +12,7 @@ type TaskRequest struct {
 	Name        string `json:"name" example:"task name"`
 	Description string `json:"description" example:"task description"`
 }
+
+type UpdateTaskRequest struct {
+	Id int `json:"id" example:"1"`
+}

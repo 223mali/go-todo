@@ -93,6 +93,31 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"task": response})
+	c.JSON	(http.StatusOK, gin.H{"task": response})
+
+}
+
+// @Summary Create Single task
+// @Schemes
+// @Description Updates a single task
+// @Tags Tasks
+// @Accept json
+// @Param id path int true "id"
+// @Produce json
+// @Success 200 {object} model.TaskRequest
+// @Router /api/v1/tasks/task/{id} [put]
+func UpdateTask(c *gin.Context) {
+	db := config.ConnectToDatabase()
+	var id = c.Param("id")
+
+	if id == "" {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
+		return
+	}
+	
+
+	fmt.Println("param", id)
+
+	c.String(http.StatusOK, "hello world")
 
 }
