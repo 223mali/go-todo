@@ -1,7 +1,7 @@
 package router
 
 import (
-	"github.com/223mali/go-todo/src/controller"
+	"github.com/223mali/go-todo/controller"
 	"github.com/gin-gonic/gin"
 )
 

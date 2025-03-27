@@ -1,6 +1,6 @@
 package interfaces
 
-import "github.com/223mali/go-todo/src/model"
+import "github.com/223mali/go-todo/model"
 
 type TaskRepository interface {
 	FindAll() ([]model.Task, error)

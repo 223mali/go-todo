@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"net/http"
 
-	config "github.com/223mali/go-todo/src/configs"
-	"github.com/223mali/go-todo/src/model"
-	"github.com/223mali/go-todo/src/repository"
+	config "github.com/223mali/go-todo/configs"
+	"github.com/223mali/go-todo/model"
+	"github.com/223mali/go-todo/repository"
 	"github.com/gin-gonic/gin"
 )
 
@@ -93,7 +93,7 @@ func CreateTask(c *gin.Context) {
 		return
 	}
 
-	c.JSON	(http.StatusOK, gin.H{"task": response})
+	c.JSON(http.StatusOK, gin.H{"task": response})
 
 }
 
@@ -107,14 +107,12 @@ func CreateTask(c *gin.Context) {
 // @Success 200 {object} model.TaskRequest
 // @Router /api/v1/tasks/task/{id} [put]
 func UpdateTask(c *gin.Context) {
-	db := config.ConnectToDatabase()
 	var id = c.Param("id")
 
 	if id == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "id is required"})
 		return
 	}
-	
 
 	fmt.Println("param", id)
 

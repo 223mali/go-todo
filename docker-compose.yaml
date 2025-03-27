@@ -3,10 +3,11 @@ services:
   #   build: .
   #   ports:
   #     - "8080:8080"
+  #   volumes:
+  #     - ./:/app
   #   depends_on:
   #     db:
   #       condition: service_healthy
-  #   command: ["air"]
 
   db:
     image: postgres

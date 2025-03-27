@@ -4,8 +4,8 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/223mali/go-todo/src/interfaces"
-	"github.com/223mali/go-todo/src/model"
+	"github.com/223mali/go-todo/interfaces"
+	"github.com/223mali/go-todo/model"
 	"gorm.io/gorm"
 )
 
@@ -14,6 +14,7 @@ type TaskRepositoryImpl struct {
 }
 
 func NewTaskRepositoryImpl(db *gorm.DB) interfaces.TaskRepository {
+	fmt.Println("Heyo")
 	return &TaskRepositoryImpl{Db: db}
 }
 

@@ -3,10 +3,10 @@ package main
 import (
 	"net/http"
 
-	config "github.com/223mali/go-todo/src/configs"
-	"github.com/223mali/go-todo/src/docs"
-	"github.com/223mali/go-todo/src/model"
-	"github.com/223mali/go-todo/src/router"
+	config "github.com/223mali/go-todo/configs"
+	"github.com/223mali/go-todo/docs"
+	"github.com/223mali/go-todo/model"
+	"github.com/223mali/go-todo/router"
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
